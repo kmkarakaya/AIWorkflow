@@ -16,17 +16,13 @@ murat.karakaya@tedu.edu.tr
 
 # Introduction
 
-The rise of AI-assisted coding tools such as GitHub Copilot, ChatGPT, and other large language model (LLM) based systems has fundamentally changed how developers write code. These tools enable rapid prototyping and exploration, allowing developers to generate substantial code from natural language prompts. However, this efficiency comes with a critical challenge: the informal, iterative nature of AI-assisted development—often characterized as "vibe coding"—produces artifacts whose provenance, rationale, and quality are difficult to trace and verify.
+AI-assisted coding tools such as GitHub Copilot, ChatGPT, and other large language model (LLM) systems have accelerated prototyping and lowered the barrier to producing working software. That rapid creativity often takes the form of informal, iterative exploration—commonly called "vibe coding"—but these exploratory practices frequently leave gaps in provenance, rationale, and verifiability. As a result, artifacts created during AI-assisted development can be hard to reproduce, audit, or maintain.
 
-<!-- source: Workflows_v00.pdf p.1-2 -->
+To address these gaps we propose V-Flow, a compact, five-stage workflow that turns exploratory AI-assisted development into a verifiable, repeatable process. V-Flow explicitly separates exploratory activities (planning, build, evaluate) from formal verification and release (verify, release), and it requires lightweight, machine-readable checkpoints at each stage. By combining staged quality gates, provenance capture, and integration patterns for version control and CI, V-Flow preserves creative iteration while making it possible to trace how a model, dataset, or result was produced.
 
-For brevity we refer to the proposed five-stage workflow (planning, build, evaluate, verify, release) as V-Flow.
+In contrast to traditional software engineering workflows—where version control, tests, and reviews are woven into the development lifecycle—AI-assisted development often skips explicit documentation of prompts, model versions, and environment details. V-Flow addresses these specific provenance gaps by (a) requiring task-level planning records that link to commits and artifacts, (b) capturing generation metadata (prompt summaries, model version, timestamps) during build, and (c) enforcing deterministic verification gates before release. This structure reduces technical debt and improves the reproducibility and auditability of AI-produced artifacts.
 
-In traditional software engineering, workflows incorporate version control, code review, testing, and documentation to ensure traceability and quality. AI-assisted development, by contrast, frequently bypasses these structures. Developers may accept AI-generated code without fully understanding its logic, skip systematic testing, or fail to document the prompts and context that led to specific implementations. This lack of rigor creates technical debt, reduces reproducibility, and undermines the ability to audit and maintain codebases over time.
-
-<!-- source: Workflows_v00.pdf p.2-3 -->
-
-This paper addresses these challenges by proposing a structured AI workflow that bridges the gap between exploratory AI-assisted coding and verifiable software engineering practices. The workflow introduces five explicit stages—planning, build, evaluate, verify, and release—each with defined inputs, outputs, and quality gates. By integrating lightweight checkpoints, automated verification, and artifact-level provenance tracking, the workflow makes it possible to retain the speed and creativity of AI-assisted development while establishing the traceability and repeatability required for professional software engineering and research.
+The remainder of the paper describes V-Flow in detail. Section II explains the workflow stages and quality gates; Section III presents a case study applying V-Flow to a manuscript conversion pipeline; Section IV situates the approach with related work; Section V discusses limitations and future directions; and Section VI concludes.
 
 <!-- source: Workflows_v01.pdf p.1-2 -->
 
