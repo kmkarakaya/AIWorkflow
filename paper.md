@@ -1,22 +1,26 @@
-From Vibe Coding to Verifiable Workflows: An AI Workflow for Traceable, Repeatable Research
+V-Flow: From Vibe Coding to Verifiable Workflows: An AI Workflow for Traceable, Repeatable Research
 
-Murat Karakaya  
-*Department of Software Engineering*  
-*TED University*  
-Ankara, Türkiye  
+Murat Karakaya
+*Department of Software Engineering*
+*TED University*
+Ankara, Türkiye
 murat.karakaya@tedu.edu.tr
 
-*Abstract*—AI-driven software development often relies on informal, human-guided experimentation—what some call "vibe coding"—which makes results hard to reproduce, audit, and build upon. This paper presents a compact, verifiable AI workflow that transforms exploratory development into a repeatable pipeline by combining explicit staging (planning, build, evaluate, verify, release), automated quality gates, and artifact-level provenance. The workflow emphasizes: (1) lightweight, machine-readable checkpoints that capture intent and environment; (2) modular verification steps that separate heuristic exploration from documented, auditable outcomes; and (3) tooling patterns that integrate authorship metadata, tests, and exportable artifacts to simplify review and reuse. Together, these elements reduce the effort needed to trace how a model, dataset, or result was produced while preserving the creative iteration essential to early-stage research. The approach is validated through a case study demonstrating improved traceability and reduced ambiguity in result provenance compared to typical exploratory practices.
+*Abstract*—AI-driven software development often relies on informal, human-guided experimentation—what some call "vibe coding"—which makes results hard to reproduce, audit, and build upon. This paper presents V-Flow, a compact, verifiable AI workflow that transforms exploratory development into a repeatable pipeline by combining explicit staging (planning, build, evaluate, verify, release), automated quality gates, and artifact-level provenance. The workflow emphasizes: (1) lightweight, machine-readable checkpoints that capture intent and environment; (2) modular verification steps that separate heuristic exploration from documented, auditable outcomes; and (3) tooling patterns that integrate authorship metadata, tests, and exportable artifacts to simplify review and reuse. Together, these elements reduce the effort needed to trace how a model, dataset, or result was produced while preserving the creative iteration essential to early-stage research. The approach is validated through a case study demonstrating improved traceability and reduced ambiguity in result provenance compared to typical exploratory practices.
 
 *Keywords*—AI workflow, reproducibility, verifiability, traceability, quality gates, software engineering
 
 <!-- source: Workflows_v01.pdf p.1-3; Workflows_v00.pdf p.2-4 -->
+
+<!-- short-name: V-Flow; chosen 2025-11-09 -->
 
 # Introduction
 
 The rise of AI-assisted coding tools such as GitHub Copilot, ChatGPT, and other large language model (LLM) based systems has fundamentally changed how developers write code. These tools enable rapid prototyping and exploration, allowing developers to generate substantial code from natural language prompts. However, this efficiency comes with a critical challenge: the informal, iterative nature of AI-assisted development—often characterized as "vibe coding"—produces artifacts whose provenance, rationale, and quality are difficult to trace and verify.
 
 <!-- source: Workflows_v00.pdf p.1-2 -->
+
+For brevity we refer to the proposed five-stage workflow (planning, build, evaluate, verify, release) as V-Flow.
 
 In traditional software engineering, workflows incorporate version control, code review, testing, and documentation to ensure traceability and quality. AI-assisted development, by contrast, frequently bypasses these structures. Developers may accept AI-generated code without fully understanding its logic, skip systematic testing, or fail to document the prompts and context that led to specific implementations. This lack of rigor creates technical debt, reduces reproducibility, and undermines the ability to audit and maintain codebases over time.
 
