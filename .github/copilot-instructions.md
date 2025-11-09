@@ -55,18 +55,18 @@ Option A — Pandoc (recommended):
 mkdir -Force .\build
 
 # Use the conference reference template (template-a4.docx) if available.
-# Pandoc's --reference-doc option tells Word to apply the template styles to the output.
+# IMPORTANT: do NOT generate a Table of Contents for the submitted DOCX — the conference template does not include a TOC page.
 $template = '.\template-a4.docx'
 if (-Not (Test-Path $template)) {
-	Write-Host "Warning: reference template not found at $template. Producing plain docx without template." -ForegroundColor Yellow
-	pandoc .\paper.md -o .\build\paper.docx --from gfm --toc --reference-location=block
+  Write-Host "Warning: reference template not found at $template. Producing plain docx without template." -ForegroundColor Yellow
+  pandoc .\paper.md -o .\build\paper.docx --from gfm --reference-location=block
 } else {
-	$cmd = "pandoc .\paper.md -o .\build\paper.docx --from gfm --toc --reference-location=block --reference-doc=\"$template\""
-	Write-Host "Running: $cmd"
-	Invoke-Expression $cmd
+  $cmd = "pandoc .\paper.md -o .\build\paper.docx --from gfm --reference-location=block --reference-doc=\"$template\""
+  Write-Host "Running: $cmd"
+  Invoke-Expression $cmd
 
-	# Record the exact export command and template used for reproducibility
-	"$((Get-Date).ToString('u'))`nCommand: $cmd`nTemplate: $template`nOutput: .\build\paper.docx" | Out-File -FilePath .\build\export-command.txt -Encoding utf8
+  # Record the exact export command and template used for reproducibility
+  "$((Get-Date).ToString('u'))`nCommand: $cmd`nTemplate: $template`nOutput: .\build\paper.docx" | Out-File -FilePath .\build\export-command.txt -Encoding utf8
 }
 ```
 

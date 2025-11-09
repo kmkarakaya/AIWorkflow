@@ -6,10 +6,12 @@ $templatePath = Join-Path -Path (Get-Location) -ChildPath 'template-a4.docx'
 
 # Build the Pandoc command. If the template exists, use it as a reference doc so Word styles/margins are applied.
 if (Test-Path $templatePath) {
-	$pandocCmd = 'pandoc .\paper.md -o .\build\paper.docx --from gfm --toc --reference-location=block --reference-doc="' + $templatePath + '"'
+	# Use the conference template. Do NOT generate a Table of Contents (--toc) here — the template does not expect a TOC page.
+	$pandocCmd = 'pandoc .\paper.md -o .\build\paper.docx --from gfm --reference-location=block --reference-doc="' + $templatePath + '"'
 	Write-Host "Using reference template: $templatePath"
 } else {
-	$pandocCmd = "pandoc .\paper.md -o .\build\paper.docx --from gfm --toc --reference-location=block"
+	# Fallback plain conversion without a TOC. Keep --reference-location=block so the reference doc (if used) places the title block correctly.
+	$pandocCmd = 'pandoc .\paper.md -o .\build\paper.docx --from gfm --reference-location=block'
 	Write-Host "Reference template not found at $templatePath. Producing docx without template." -ForegroundColor Yellow
 }
 
