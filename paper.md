@@ -1,6 +1,5 @@
 ---
 title: "From Vibe Coding to Verifiable Workflows"
-author: ""
 date: ""
 keywords: "verifiable workflows; provenance; AI-assisted authoring"
 ---
@@ -10,6 +9,13 @@ keywords: "verifiable workflows; provenance; AI-assisted authoring"
 *Abstract*—“Vibe coding” describes a class of lightweight, rapid authoring practices assisted by modern AI tools. These practices lower the friction of iteration but often erode traceability: it becomes hard to know why a sentence was written, which source justified it, and which editing steps produced the final artifact. This paper introduces a compact, practitioner‑facing workflow that restores verifiability to AI‑assisted authoring while preserving speed. The workflow defines six stages—Planning, Context, Execution, Provenance, Quality, and Export—each with explicit inputs, outputs, and acceptance checks. We provide concrete agent prompt templates, commit messaging conventions, and provenance formats that can be adopted with minimal tooling. We validate the approach in a single‑paper case study: condensing two draft PDFs into a 6–7 page manuscript and producing a reproducible `.docx` export via Pandoc on Windows. The approach improves reviewer comprehension and reproducibility with low overhead, offering practical practices for coding‑with‑AI workflows. <!-- source: v01.pdf ch.0 -->
 
 Keywords—verifiable workflows; provenance; AI-assisted authoring
+
+<div style="text-align:center">
+Murat Karakaya  
+Software Engineering Department, TED University  
+Ankara, Turkey  
+murat.karakaya@tedu.edu.tr
+</div>
 
 # Introduction
 
@@ -47,8 +53,7 @@ The following claims are distilled from the Chapter‑0 draft and are operationa
 
 At the core of the workflow is an operational commitment: every substantive change must be small, justified, and traceable. We operationalize this with six stages. Each stage produces a short artifact that can be inspected quickly by a human reviewer.
 
-![Workflow overview](figures/workflow-overview.png)
-_Figure 1. End‑to‑end workflow stages and primary artifacts._
+<!-- Figure removed: workflow-overview (SVG) was causing conversion warnings; see build/template-a4.md for template guidance. -->
 
 ## Stage 1 — Planning and scoping
 
