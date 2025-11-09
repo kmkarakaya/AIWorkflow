@@ -59,6 +59,10 @@ The planning stage transforms a problem statement or feature request into a stru
 
 The planning stage establishes intent and scope, creating a traceable record of what was attempted and why. This record becomes critical for later review, replication, or debugging.
 
+![V-Flow workflow diagram](figures/workflow.png)  
+_Fig. 1. V-Flow — the five-stage verifiable AI workflow (Planning, Build, Evaluate, Verify, Release). Each stage emits a machine-readable provenance checkpoint; the Verify gate enforces pass/fail rules and blocks release until criteria pass._  
+Alt-text: "Diagram of V-Flow showing stages Planning, Build, Evaluate, Verify, Release with iteration arrows back to Build and provenance checkpoint icons under each stage."
+
 ## Build Stage
 
 The build stage generates code, documentation, or other artifacts based on the task list. Developers interact with AI tools to produce drafts, which are then saved with metadata capturing the prompts, model version, and timestamp.
