@@ -46,47 +46,64 @@ This repository is a single-paper workspace. Your job is to turn the two draft P
 
 ### Conversion to DOCX (Windows PowerShell)
 
-Preferred (confirmed): Pandoc with the conference Word template as a reference document. Using the template ensures the produced `.docx` matches page size (A4), margins, and styles (title block, headings, figure captions) defined by the conference.
+**Confirmed working approach:** Pandoc with the IEEE conference Word template as a reference document, followed by post-processing to enforce two-column layout.
 
-Option A — Pandoc (recommended):
-
-```powershell
-# Ensure the build directory exists
-mkdir -Force .\build
-
-# Use the conference reference template (template-a4.docx) if available.
-# IMPORTANT: do NOT generate a Table of Contents for the submitted DOCX — the conference template does not include a TOC page.
-$template = '.\template-a4.docx'
-if (-Not (Test-Path $template)) {
-  Write-Host "Warning: reference template not found at $template. Producing plain docx without template." -ForegroundColor Yellow
-  pandoc .\paper.md -o .\build\paper.docx --from gfm --reference-location=block
-} else {
-  $cmd = "pandoc .\paper.md -o .\build\paper.docx --from gfm --reference-location=block --reference-doc=\"$template\""
-  Write-Host "Running: $cmd"
-  Invoke-Expression $cmd
-
-  # Record the exact export command and template used for reproducibility
-  "$((Get-Date).ToString('u'))`nCommand: $cmd`nTemplate: $template`nOutput: .\build\paper.docx" | Out-File -FilePath .\build\export-command.txt -Encoding utf8
-}
-```
-
-Option B — Python converter (if you prefer a Python-based tool):
+**To convert paper.md to paper.docx:**
 
 ```powershell
-# Example patterns (pick the one that matches the installed tool)
-python -m docx_converter .\paper.md -o .\build\paper.docx
-python -m md2docx .\paper.md -o .\build\paper.docx
-docx-converter .\paper.md -o .\build\paper.docx
+# Run the conversion script
+.\convert_to_docx.ps1
 ```
 
-Notes
+This script performs the following steps:
 
-- Keep Windows paths and PowerShell syntax.
-- The conference template (`template-a4.docx`) enforces A4 paper size, margins, and style names (e.g., "Heading 1".."Heading 5", "Figure Caption", "Table Head"). Prefer using it via `--reference-doc` when available.
-- Remove any template instructional text from the final `paper.md` before conversion (the Word template contains guidance sections that must not appear in the submitted paper).
-- Ensure figures are placed under `figures/`, are high-resolution (prefer 300 dpi), and have captions following the template guidance (use "Fig. N" and 8pt Times New Roman for labels where applicable).
-- Pandoc will apply paragraph/heading structure but will not embed fonts; if the conference requires specific fonts not present on your system, verify the produced `.docx` on a machine that has them installed or ask for the publisher's preferred reference-doc.
-- The `build/export-command.txt` file records the exact command and template used for reproducibility.
+1. **Creates the build directory** if it doesn't exist
+2. **Runs Pandoc** with the correct options:
+   - `--from markdown` (not gfm - YAML front matter not needed/supported)
+   - `--reference-doc="template-a4.docx"` (applies IEEE conference template)
+   - `--reference-location=block` (places references at end)
+3. **Post-processes the .docx** to enforce two-column layout by:
+   - Extracting the .docx (which is a ZIP archive)
+   - Modifying `word/document.xml` to set `<w:cols w:num="2" w:space="708" w:sep="0" />`
+   - Re-packaging the modified document
+4. **Records metadata** in `build/export-command.txt` for reproducibility
+
+**Verification:**
+
+After conversion, verify format compliance:
+
+```powershell
+python verify_format.py .\build\paper.docx
+```
+
+The verification script checks:
+- Two-column layout specification
+- Presence of Abstract and References
+- Document structure and content length
+
+**Format Requirements (from template-a4.docx):**
+
+- **Paper size:** A4 (210mm × 297mm)
+- **Layout:** Two-column with 708 twips spacing
+- **Margins:** As specified in template
+- **Title block:** Plain text (no YAML front matter)
+  - Title on first line
+  - Author name, affiliation, location, email on following lines
+- **Abstract:** Italic prefix "*Abstract*—" followed by 150-200 words
+- **Keywords:** Italic prefix "*Keywords*—" followed by comma-separated terms
+- **Sections:** Use `#` for top-level headings (Introduction, Method, etc.)
+- **Subsections:** Use `##`, `###` etc. for nested headings
+- **References:** Use `#####` heading level with "(Heading 5)" style
+- **Figures:** Place in `figures/` directory, reference with standard Markdown syntax
+- **Tables:** Use standard Markdown table syntax
+
+**Important Notes:**
+
+- Do NOT use YAML front matter (causes Pandoc parsing errors with `--from markdown`)
+- Title and author information should be plain text at the start of the document
+- The template (`template-a4.docx`) provides IEEE-style formatting
+- Post-processing automatically adds two-column layout if not present in template
+- All conversions are logged in `build/export-command.txt` for reproducibility
 
 ### Quickstart tasks for agents
 
