@@ -1,5 +1,5 @@
-﻿2025-11-09 18:26:29Z
-Command: pandoc .\paper.md -o .\build\paper.docx --from markdown --reference-location=block --reference-doc="C:\Users\murat.karakaya\DriveKMK\Makaleler\2025 AI workflow\template-a4.docx"
-Template: C:\Users\murat.karakaya\DriveKMK\Makaleler\2025 AI workflow\template-a4.docx
-Output: C:\Users\murat.karakaya\DriveKMK\Makaleler\2025 AI workflow\build\paper.docx
+﻿2025-11-10 14:41:03Z
+Command: pandoc .\paper.md -o .\build\paper.docx --from markdown --reference-location=block --reference-doc="C:\Users\KMK\gDrive_KMK\Makaleler\2025 AI workflow\template-a4.docx"
+Template: C:\Users\KMK\gDrive_KMK\Makaleler\2025 AI workflow\template-a4.docx
+Output: C:\Users\KMK\gDrive_KMK\Makaleler\2025 AI workflow\build\paper.docx
 
